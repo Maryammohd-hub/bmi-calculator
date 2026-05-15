@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'icon_content.dart';
-import 'card.dart';
+import 'reusable_card.dart';
 
 const activeCardColour = Color(0xFF1D1E33);
+const inactiveCardColour = Color(0xFF111328);
+
+enum Gender { male, female }
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -13,6 +16,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  Gender? selectedGender;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,7 +30,14 @@ class _MyHomePageState extends State<MyHomePage> {
               children: [
                 Expanded(
                   child: ReusableCard(
-                    color: activeCardColour,
+                    onPress: () {
+                      setState(() {
+                        selectedGender = Gender.male;
+                      });
+                    },
+                    color: selectedGender == Gender.male
+                        ? activeCardColour
+                        : inactiveCardColour,
                     cardChild: IconContent(
                       icon: FontAwesomeIcons.mars,
                       label: 'MALE',
@@ -34,7 +46,14 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
                 Expanded(
                   child: ReusableCard(
-                    color: activeCardColour,
+                    onPress: () {
+                      setState(() {
+                        selectedGender = Gender.female;
+                      });
+                    },
+                    color: selectedGender == Gender.female
+                        ? activeCardColour
+                        : inactiveCardColour,
                     cardChild: IconContent(
                       icon: FontAwesomeIcons.venus,
                       label: 'FEMALE',
@@ -46,6 +65,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           Expanded(
             child: ReusableCard(
+              onPress: () {},
               color: activeCardColour,
               cardChild: Text('data'),
             ),
@@ -55,12 +75,14 @@ class _MyHomePageState extends State<MyHomePage> {
               children: [
                 Expanded(
                   child: ReusableCard(
+                    onPress: () {},
                     color: activeCardColour,
                     cardChild: Text('data'),
                   ),
                 ),
                 Expanded(
                   child: ReusableCard(
+                    onPress: () {},
                     color: activeCardColour,
                     cardChild: Text('data'),
                   ),

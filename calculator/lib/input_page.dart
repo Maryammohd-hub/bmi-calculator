@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'icon_content.dart';
 import 'reusable_card.dart';
-
-const activeCardColour = Color(0xFF1D1E33);
-const inactiveCardColour = Color(0xFF111328);
+import 'constants.dart';
 
 enum Gender { male, female }
 
@@ -17,6 +15,9 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   Gender? selectedGender;
+  int height = 180;
+  int weight = 60;
+  int age = 20;
 
   @override
   Widget build(BuildContext context) {
@@ -36,8 +37,8 @@ class _MyHomePageState extends State<MyHomePage> {
                       });
                     },
                     color: selectedGender == Gender.male
-                        ? activeCardColour
-                        : inactiveCardColour,
+                        ? kActiveCardColour
+                        : kInactiveCardColour,
                     cardChild: IconContent(
                       icon: FontAwesomeIcons.mars,
                       label: 'MALE',
@@ -52,8 +53,8 @@ class _MyHomePageState extends State<MyHomePage> {
                       });
                     },
                     color: selectedGender == Gender.female
-                        ? activeCardColour
-                        : inactiveCardColour,
+                        ? kActiveCardColour
+                        : kInactiveCardColour,
                     cardChild: IconContent(
                       icon: FontAwesomeIcons.venus,
                       label: 'FEMALE',
@@ -64,10 +65,37 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ),
           Expanded(
-            child: ReusableCard(
-              onPress: () {},
-              color: activeCardColour,
-              cardChild: Text('data'),
+            child: Flexible(
+              fit: FlexFit.loose,
+              child: ReusableCard(
+                onPress: () {},
+                color: kActiveCardColour,
+                cardChild: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text("HEIGHT", style: kLabelTextStyle),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.baseline,
+                      textBaseline: TextBaseline.alphabetic,
+                      children: [
+                        Text(height.toString(), style: kNumberTextStyle),
+                        Text('cm', style: kLabelTextStyle),
+                      ],
+                    ),
+                    Slider(
+                      value: height.toDouble(),
+                      min: 120.0,
+                      max: 220.0,
+                      onChanged: (double newValue) {
+                        setState(() {
+                          height = newValue.round();
+                        });
+                      },
+                    ),
+                  ],
+                ),
+              ),
             ),
           ),
           Expanded(
@@ -76,14 +104,14 @@ class _MyHomePageState extends State<MyHomePage> {
                 Expanded(
                   child: ReusableCard(
                     onPress: () {},
-                    color: activeCardColour,
+                    color: kActiveCardColour,
                     cardChild: Text('data'),
                   ),
                 ),
                 Expanded(
                   child: ReusableCard(
                     onPress: () {},
-                    color: activeCardColour,
+                    color: kActiveCardColour,
                     cardChild: Text('data'),
                   ),
                 ),

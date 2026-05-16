@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'constants.dart';
+import 'package:calculator/constants.dart';
 
 class IconContent extends StatelessWidget {
   const IconContent({required this.icon, required this.label});
